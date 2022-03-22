@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import dlib
 from math import hypot
-from mouth_tracking import *
+# from mouth_tracking import *
 from facial_landmarks_detection import *
 from blink_detection import *
 from gaze_detection import *
