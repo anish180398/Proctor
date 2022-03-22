@@ -21,18 +21,21 @@ while True:
 	
 	faceCount, faces = detectFace(frame)
 	#print(faceCount)
-	print(faces)
+	# print(faces)
 	# mouthTrack(faces, frame)
-	mouthopen(frame)
-	# headPoseDetect(ret, frame)
+	mouthOpen = mouthopen(frame)
+	# headPose = headPoseDetect(ret, frame)
 	# blinkStatus = isBlinking(faces, frame)
-	# eyeStatus = gazeDetection(faces, frame)
+	eyeStatus = gazeDetection(faces, frame)
 	# headPose = headPoseDetect(ret, frame)
 	# #objectStatus = detectObject(frame)
 	# #print(blinkStatus[2]+' - '+eyeStatus)
-	# #print(objectStatus)
-	# print(eyeStatus)
+
+	if mouthOpen != '' or mouthOpen != 'None':
+		print(mouthOpen)
 	# print(headPose)
+	if eyeStatus != '' or eyeStatus != 'None':
+		print(eyeStatus)
 
 
 

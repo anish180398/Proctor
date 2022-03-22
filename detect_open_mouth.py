@@ -39,7 +39,7 @@ ap.add_argument("-w", "--webcam", type=int, default=0,
 args = vars(ap.parse_args())
 
 # define one constants, for mouth aspect ratio to indicate open mouth
-MOUTH_AR_THRESH = 0.79
+MOUTH_AR_THRESH = 0.70
 
 # initialize dlib's face detector (HOG-based) and then create
 # the facial landmark predictor
@@ -52,11 +52,11 @@ predictor = dlib.shape_predictor(args["shape_predictor"])
 
 # start the video stream thread
 print("[INFO] starting video stream thread...")
-vs = VideoStream(src=args["webcam"]).start()
-time.sleep(1.0)
+# vs = VideoStream(src=args["webcam"]).start()
+# time.sleep(1.0)
 
-frame_width = 640
-frame_height = 360
+# frame_width = 640
+# frame_height = 360
 
 # Define the codec and create VideoWriter object.The output is stored in 'outpy.avi' file.
 # out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 30, (frame_width,frame_height))
@@ -64,13 +64,14 @@ frame_height = 360
 
 def mouthopen(frame):
 # loop over frames from the video stream
-
+# while True:
 	# grab the frame from the threaded video file stream, resize
 	# it, and convert it to grayscale
 	# channels)
-	#frame = vs.read()
-	frame = frame
-	frame = imutils.resize(frame, width=640)
+	# frame = vs.read()
+	#frame = frame
+	# print(frame)
+	# frame = imutils.resize(frame, width=640)
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
 	# detect faces in the grayscale frame
@@ -99,6 +100,7 @@ def mouthopen(frame):
 
         # Draw text if mouth is open
 		if mar > MOUTH_AR_THRESH:
+			return "Mouth Open"
 			print("Mouth Open")
 			cv2.putText(frame, "Mouth is Open!", (30,60),
 			cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255),2)
