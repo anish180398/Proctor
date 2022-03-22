@@ -59,15 +59,17 @@ frame_width = 640
 frame_height = 360
 
 # Define the codec and create VideoWriter object.The output is stored in 'outpy.avi' file.
-out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 30, (frame_width,frame_height))
-time.sleep(1.0)
+# out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 30, (frame_width,frame_height))
+# time.sleep(1.0)
 
+def mouthopen(frame):
 # loop over frames from the video stream
-while True:
+
 	# grab the frame from the threaded video file stream, resize
 	# it, and convert it to grayscale
 	# channels)
-	frame = vs.read()
+	#frame = vs.read()
+	frame = frame
 	frame = imutils.resize(frame, width=640)
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -97,18 +99,19 @@ while True:
 
         # Draw text if mouth is open
 		if mar > MOUTH_AR_THRESH:
+			print("Mouth Open")
 			cv2.putText(frame, "Mouth is Open!", (30,60),
 			cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255),2)
 	# Write the frame into the file 'output.avi'
-	out.write(frame)
-	# show the frame
-	cv2.imshow("Frame", frame)
-	key = cv2.waitKey(1) & 0xFF
+	# out.write(frame)
+	# # show the frame
+	# cv2.imshow("Frame", frame)
+	# key = cv2.waitKey(1) & 0xFF
 
 	# if the `q` key was pressed, break from the loop
-	if key == ord("q"):
-		break
+	# if key == ord("q"):
+	# 	break
 
 # do a bit of cleanup
-cv2.destroyAllWindows()
-vs.stop()
+# cv2.destroyAllWindows()
+# vs.stop()

@@ -8,6 +8,7 @@ from blink_detection import *
 from gaze_detection import *
 from headposeDetection import *
 #from object_detection import *
+from detect_open_mouth import *
 print("Started")
 cap = cv2.VideoCapture(0)
 
@@ -21,7 +22,8 @@ while True:
 	faceCount, faces = detectFace(frame)
 	#print(faceCount)
 	print(faces)
-	mouthTrack(faces, frame)
+	# mouthTrack(faces, frame)
+	mouthopen(frame)
 	# headPoseDetect(ret, frame)
 	# blinkStatus = isBlinking(faces, frame)
 	# eyeStatus = gazeDetection(faces, frame)
