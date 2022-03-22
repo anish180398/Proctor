@@ -4,7 +4,7 @@ import numpy as np
 import math
 from face_detector import get_face_detector, find_faces
 from face_landmarks import get_landmark_model, detect_marks
-tracked_head = []
+
 def get_2d_points(img, rotation_vector, translation_vector, camera_matrix, val):
    
     point_3d = []
@@ -68,7 +68,7 @@ def head_pose_points(img, rotation_vector, translation_vector, camera_matrix):
     x = point_2d[2]
     
     return (x, y)
-def headPoseDetect(ret , frame):    
+def headPoseDetect(ret, frame):    
     face_model = get_face_detector()
     landmark_model = get_landmark_model()
     cap = cv2.VideoCapture(0)
@@ -94,7 +94,7 @@ def headPoseDetect(ret , frame):
                             [0, 0, 1]], dtype = "double"
                             )
     
-        
+    tracked_head = ''   
     img = frame
     if ret == True:
         faces = find_faces(img, face_model)
@@ -146,20 +146,20 @@ def headPoseDetect(ret , frame):
                 # print('div by zero error')
             if ang1 >= 48:
                 print('Head down')
-                tracked_head.append('Head_Down')
+                tracked_head = 'Head_Down'
                 cv2.putText(img, 'Head down', (30, 30), font, 2, (255, 255, 128), 3)
             elif ang1 <= -48:
                 print('Head up')
-                tracked_head.append('Head_Up')
+                tracked_head = 'Head_Up'
                 cv2.putText(img, 'Head up', (30, 30), font, 2, (255, 255, 128), 3)
             
             if ang2 >= 48:
                 print('Head right')
-                tracked_head.append('Head_Right')
+                tracked_head = 'Head_Right'
                 cv2.putText(img, 'Head right', (90, 30), font, 2, (255, 255, 128), 3)
             elif ang2 <= -48:
                 print('Head left')
-                tracked_head.append('Head_Left')
+                tracked_head = 'Head_Left'
                 cv2.putText(img, 'Head left', (90, 30), font, 2, (255, 255, 128), 3)
             
             cv2.putText(img, str(ang1), tuple(p1), font, 2, (128, 255, 255), 3)
