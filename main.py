@@ -7,7 +7,7 @@ from facial_landmarks_detection import *
 from blink_detection import *
 from gaze_detection import *
 from headposeDetection import *
-#from object_detection import *
+from object_detection import *
 print("Started")
 cap = cv2.VideoCapture(0)
 
@@ -16,7 +16,7 @@ if(cap.isOpened()==False):
 
 while True:
 
-	ret , frame = cap.read()
+	ret, frame = cap.read()
 	
 	faceCount, faces = detectFace(frame)
 	mouthTrack(faces, frame)
