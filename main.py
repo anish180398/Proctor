@@ -19,16 +19,18 @@ while True:
 	ret, frame = cap.read()
 	
 	faceCount, faces = detectFace(frame)
+	#print(faceCount)
+	print(faces)
 	mouthTrack(faces, frame)
-	headPoseDetect(ret, frame)
-	blinkStatus = isBlinking(faces, frame)
-	eyeStatus = gazeDetection(faces, frame)
-	headPose = headPoseDetect(ret, frame)
-	#objectStatus = detectObject(frame)
-	#print(blinkStatus[2]+' - '+eyeStatus)
-	#print(objectStatus)
-	print(eyeStatus)
-	print(headPose)
+	# headPoseDetect(ret, frame)
+	# blinkStatus = isBlinking(faces, frame)
+	# eyeStatus = gazeDetection(faces, frame)
+	# headPose = headPoseDetect(ret, frame)
+	# #objectStatus = detectObject(frame)
+	# #print(blinkStatus[2]+' - '+eyeStatus)
+	# #print(objectStatus)
+	# print(eyeStatus)
+	# print(headPose)
 
 
 
