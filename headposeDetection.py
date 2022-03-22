@@ -68,33 +68,34 @@ def head_pose_points(img, rotation_vector, translation_vector, camera_matrix):
     x = point_2d[2]
     
     return (x, y)
-    
-face_model = get_face_detector()
-landmark_model = get_landmark_model()
-cap = cv2.VideoCapture(0)
-ret, img = cap.read()
-size = img.shape
-font = cv2.FONT_HERSHEY_SIMPLEX 
-# 3D model points.
-model_points = np.array([
-                            (0.0, 0.0, 0.0),             # Nose tip
-                            (0.0, -330.0, -65.0),        # Chin
-                            (-225.0, 170.0, -135.0),     # Left eye left corner
-                            (225.0, 170.0, -135.0),      # Right eye right corne
-                            (-150.0, -150.0, -125.0),    # Left Mouth corner
-                            (150.0, -150.0, -125.0)      # Right mouth corner
-                        ])
-
-# Camera internals
-focal_length = size[1]
-center = (size[1]/2, size[0]/2)
-camera_matrix = np.array(
-                         [[focal_length, 0, center[0]],
-                         [0, focal_length, center[1]],
-                         [0, 0, 1]], dtype = "double"
-                         )
-while True:
+def headPoseDetect(ret , frame):    
+    face_model = get_face_detector()
+    landmark_model = get_landmark_model()
+    cap = cv2.VideoCapture(0)
     ret, img = cap.read()
+    size = img.shape
+    font = cv2.FONT_HERSHEY_SIMPLEX 
+    # 3D model points.
+    model_points = np.array([
+                                (0.0, 0.0, 0.0),             # Nose tip
+                                (0.0, -330.0, -65.0),        # Chin
+                                (-225.0, 170.0, -135.0),     # Left eye left corner
+                                (225.0, 170.0, -135.0),      # Right eye right corne
+                                (-150.0, -150.0, -125.0),    # Left Mouth corner
+                                (150.0, -150.0, -125.0)      # Right mouth corner
+                            ])
+
+    # Camera internals
+    focal_length = size[1]
+    center = (size[1]/2, size[0]/2)
+    camera_matrix = np.array(
+                            [[focal_length, 0, center[0]],
+                            [0, focal_length, center[1]],
+                            [0, 0, 1]], dtype = "double"
+                            )
+    
+        
+    img = frame
     if ret == True:
         faces = find_faces(img, face_model)
         for face in faces:
@@ -151,7 +152,7 @@ while True:
                 print('Head up')
                 tracked_head.append('Head_Up')
                 cv2.putText(img, 'Head up', (30, 30), font, 2, (255, 255, 128), 3)
-             
+            
             if ang2 >= 48:
                 print('Head right')
                 tracked_head.append('Head_Right')
@@ -164,9 +165,8 @@ while True:
             cv2.putText(img, str(ang1), tuple(p1), font, 2, (128, 255, 255), 3)
             cv2.putText(img, str(ang2), tuple(x1), font, 2, (255, 255, 128), 3)
         cv2.imshow('img', img)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    else:
-        break
-cv2.destroyAllWindows()
-cap.release()
+    #     if cv2.waitKey(1) & 0xFF == ord('q'):
+    #         break
+    # else:
+    #     break
+    return tracked_head
