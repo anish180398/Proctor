@@ -1,13 +1,4 @@
-"""Demo code showing how to estimate human head pose.
 
-There are three major steps:
-1. Detect human face in the video frame.
-2. Run facial landmark detection on the face image.
-3. Estimate the pose by solving a PnP problem.
-
-To find more details, please refer to:
-https://github.com/yinguobing/head-pose-estimation
-"""
 from argparse import ArgumentParser
 
 import cv2
@@ -79,11 +70,11 @@ def headPose(cap):
         # pose_estimator.draw_axes(frame, pose[0], pose[1])
 
         # Do you want to see the marks?
-        # mark_detector.draw_marks(frame, marks, color=(0, 255, 0))
+        mark_detector.draw_marks(frame, marks, color=(0, 255, 0))
 
         # Do you want to see the facebox?
-        # mark_detector.draw_box(frame, [facebox])
-
+        mark_detector.draw_box(frame, [facebox])
+    return pose[0]
     # Show preview.
     # cv2.imshow("Preview", frame)
     # if cv2.waitKey(1) == 27:

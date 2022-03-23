@@ -2,12 +2,12 @@ import cv2
 import numpy as np
 import dlib
 from math import hypot
-# from mouth_tracking import *
+from headPose import *
 from facial_landmarks_detection import *
 from blink_detection import *
 from gaze_detection import *
 from headposeDetection import *
-#from object_detection import *
+from phone_detector import *
 from detect_open_mouth import *
 print("Started")
 cap = cv2.VideoCapture(0)
@@ -24,19 +24,20 @@ while True:
 	# print(faces)
 	# mouthTrack(faces, frame)
 	mouthOpen = mouthopen(frame)
-	# headPose = headPoseDetect(ret, frame)
+	# headPose = headPose(cap)
 	# blinkStatus = isBlinking(faces, frame)
 	eyeStatus = gazeDetection(faces, frame)
 	# headPose = headPoseDetect(ret, frame)
-	# #objectStatus = detectObject(frame)
+	#objectStatus = detectObject(frame)
 	# #print(blinkStatus[2]+' - '+eyeStatus)
+	mobDetect = mobDetect(frame)
 
 	if mouthOpen != '' or mouthOpen != 'None':
 		print(mouthOpen)
 	# print(headPose)
 	if eyeStatus != '' or eyeStatus != 'None':
 		print(eyeStatus)
-
+	print(mobDetect)
 
 
 	cv2.imshow('frame',frame)

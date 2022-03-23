@@ -2,7 +2,7 @@
 import tensorflow as tf
 import numpy as np
 import cv2
-from main import capture
+# from main import capture
 from tensorflow.keras import Model
 from tensorflow.keras.layers import (
     Add,
@@ -268,14 +268,15 @@ def weights_download(out='models/yolov3.weights'):
 yolo = YoloV3()
 load_darknet_weights(yolo, 'models/yolov3.weights') 
 
-cap = capture
- mobile_detection = False
+def mobDetect(frame):
 
-while(True):
-    ret, image = cap.read()
-    if ret == False:
-        break
-    img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    mobile_detection = False
+
+
+    # ret, image = cap.read()
+    # if ret == False:
+    #     break
+    img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (320, 320))
     img = img.astype(np.float32)
     img = np.expand_dims(img, 0)
@@ -283,21 +284,22 @@ while(True):
     class_names = [c.strip() for c in open("models/classes.TXT").readlines()]
     boxes, scores, classes, nums = yolo(img)
     count=0
+    mob = ''
     for i in range(nums[0]):
         if int(classes[0][i] == 0):
             count +=1
         if int(classes[0][i] == 67):
             print('Mobile Phone detected')
             mobile_detection = True
-    
+
         
-    image = draw_outputs(image, (boxes, scores, classes, nums), class_names)
+    image = draw_outputs(frame, (boxes, scores, classes, nums), class_names)
 
-    cv2.imshow('Prediction', image)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+#     cv2.imshow('Prediction', image)
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
 
 
-cap.release()
-cv2.destroyAllWindows()
+# cap.release()
+# cv2.destroyAllWindows()
 
